@@ -1,0 +1,97 @@
+.prompt-container {
+    padding: 1.5rem;
+    width: 100%;
+}
+
+.prompt-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.5rem;
+}
+
+.prompt-input-wrapper {
+    position: relative;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.input-icon {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    z-index: 10;
+}
+
+.prompt-textarea {
+    width: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: var(--border-radius-md);
+    padding: 1rem 1rem 1rem 3rem;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    resize: vertical;
+    min-height: 120px;
+    transition: var(--transition-normal);
+}
+
+.prompt-textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+.prompt-textarea::placeholder {
+    color: var(--text-muted);
+}
+
+/* Sci-fi Decorative Corners */
+.corner {
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border: 2px solid transparent;
+    pointer-events: none;
+    transition: var(--transition-normal);
+}
+
+.corner-tl {
+    top: -2px;
+    left: -2px;
+    border-top-color: var(--accent-secondary);
+    border-left-color: var(--accent-secondary);
+    border-top-left-radius: var(--border-radius-md);
+}
+
+.corner-tr {
+    top: -2px;
+    right: -2px;
+    border-top-color: var(--accent-secondary);
+    border-right-color: var(--accent-secondary);
+    border-top-right-radius: var(--border-radius-md);
+}
+
+.corner-bl {
+    bottom: 0px;
+    /* Accounts for resize handle */
+    left: -2px;
+    border-bottom-color: var(--accent-secondary);
+    border-left-color: var(--accent-secondary);
+    border-bottom-left-radius: var(--border-radius-md);
+}
+
+.corner-br {
+    bottom: 0px;
+    right: -2px;
+    border-bottom-color: var(--accent-secondary);
+    border-right-color: var(--accent-secondary);
+    border-bottom-right-radius: var(--border-radius-md);
+}
+
+.prompt-textarea:focus~.corner {
+    border-color: var(--accent-primary);
+    width: 12px;
+    height: 12px;
+}

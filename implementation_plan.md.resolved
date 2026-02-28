@@ -1,0 +1,49 @@
+# Implementation Plan: Vidacut Video Editing Software
+
+Vidacut will be an AI-driven, cross-platform video editing software. Users will upload their media (videos, audio) and provide a text prompt (Theme and Style). The AI will automatically generate an edit by analyzing the media and the prompt, rendering the final result locally via WebAssembly (`ffmpeg.wasm`). The core web app will be packaged for Desktop (via Electron) and Mobile (via Capacitor).
+
+## User Review Required
+
+> [!IMPORTANT]
+> Since we are transitioning to a fully automated AI video editor:
+> 1. **AI Integration**: We need an AI model that can process the video metadata and user prompt to generate editing instructions (cuts, transitions, timing). Do you have a preferred API for this (e.g., OpenAI, Gemini), or should I build a mock module for now so you can plug in your preferred service later?
+> 2. **Local Processing**: Rather than sending your heavy video files to a server, we will use the AI API *only* to generate the instructions (the "recipe"). The actual cutting and assembly will happen on your device using `ffmpeg.wasm`. This saves massive bandwidth and server costs. Is this approach acceptable?
+> 3. **Design Aesthetic**: I will design a sleek, magical "wizard" flow (Select Media -> Select Audio -> Enter Prompt -> Generate) with premium dark-mode styling and fluid animations. Does this match your vision?
+
+## Proposed Changes
+
+### 1. Framework & Setup
+- [NEW] Initialize a Vite-based React project.
+- [NEW] Integrate Capacitor (Mobile) and Electron (Desktop).
+- [NEW] Ensure `SharedArrayBuffer` is configured for local `ffmpeg.wasm` processing.
+
+### 2. Styling System
+- [NEW] `src/index.css`: Define standard UI tokens, dark mode palette, and modern typography variables (Inter/Roboto).
+- [NEW] `src/styles/`: Modular CSS files for the multi-step AI wizard.
+- [NEW] Implement micro-animations (`generate-pulse`, `fade-in`) to make the AI generation process feel highly premium.
+
+### 3. AI & Media Processing Engine
+- [NEW] `src/lib/ffmpeg/`: Module to run FFmpeg commands on the client browser.
+- [NEW] `src/lib/ai/`: Module to interact with an LLM (to parse the user prompt and generate JSON-based editing instructions like `[{start: 0, end: 5, clip: 1}]`).
+- [NEW] `src/hooks/useAIGenerator.js`: React hook orchestrating the flow: upload -> instruct AI -> pass instructions to FFmpeg -> return final video.
+
+### 4. Application Components
+- [NEW] `src/components/Wizard/`: The main flow wrapper (Step 1: Media, Step 2: Prompt, Step 3: Render).
+- [NEW] `src/components/MediaSelector/`: Grid-based UI to select multiple videos and an audio track.
+- [NEW] `src/components/PromptBox/`: A large, aesthetic text area for the user to describe the theme and style.
+- [NEW] `src/components/AILoading/`: A beautiful loading state showing the AI "thinking" and "cutting".
+- [NEW] `src/components/Player/`: To preview the final generated video.
+
+## Verification Plan
+
+### Automated Tests
+- Configure Vite to ensure the app builds cleanly (`npm run build`).
+
+### Manual Verification
+- **App Loads**: Run `npm run dev` and check responsiveness.
+- **Aesthetic Check**: Confirm the multi-step wizard feels premium, focusing heavily on the generation loading animation.
+- **Core Loop**:
+  1. Upload 2 short MP4s and 1 MP3.
+  2. Enter a prompt: "Make a fast-paced action montage".
+  3. Ensure the AI returns valid JSON edit instructions.
+  4. Ensure `ffmpeg.wasm` processes these instructions into a final downloadable MP4.

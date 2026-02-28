@@ -1,0 +1,27 @@
+# Vidacut Video Editor - Task Breakdown
+
+- [ ] Planning
+  - [x] Create project task list and plan
+  - [ ] Gather user requirements and architecture approval
+- [ ] Setup and Scaffolding
+  - [ ] Bootstrap Vite + React application
+  - [ ] Setup Electron for Desktop Application (Windows/Mac/Linux)
+  - [ ] Setup Capacitor for Mobile Application (iOS/Android)
+  - [ ] Setup Premium UI theme (Dark Mode, Vanilla CSS Tokens)
+  - [ ] Configure `@ffmpeg/ffmpeg` and `@ffmpeg/core` dependencies
+- [ ] Core Wizard UI
+  - [ ] Implement Main Layout and Container
+  - [ ] Implement Video and Audio Uploader component
+  - [ ] Implement Prompt Input box
+- [ ] AI Integration
+  - [ ] Build AI service integration (OpenAI/Gemini/Mock)
+  - [ ] Setup prompt parsing to generate video edit instructions (JSON)
+- [ ] Render System
+  - [ ] Build useAIGenerator hook orchestrating flow
+  - [ ] Integrate FFmpeg command builder to slice based on AI JSON
+  - [ ] Render Status with Premium Progress Animation
+  - [ ] Export functionality
+- [ ] Verification
+  - [ ] Test wizard flow from Upload to Prompt
+  - [ ] Verify AI JSON validity
+  - [ ] Test FFmpeg WASM stitching speed and accuracy
