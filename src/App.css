@@ -6,7 +6,131 @@
   align-items: center;
   padding: 2rem 1rem;
   background: radial-gradient(circle at 50% -20%, rgba(99, 102, 241, 0.15), var(--bg-base) 60%);
+  position: relative;
+  overflow: hidden;
 }
+
+/* ─── Floating Background Watermark ─── */
+.watermark-wrap {
+  position: fixed;
+  bottom: 5%;
+  right: -4%;
+  width: 320px;
+  opacity: 0.04;
+  pointer-events: none;
+  z-index: 0;
+  animation: watermark-float 8s ease-in-out infinite;
+  filter: blur(1px);
+}
+
+.watermark-img {
+  width: 100%;
+  display: block;
+  filter: invert(0);
+  /* white logo stays white */
+}
+
+@keyframes watermark-float {
+
+  0%,
+  100% {
+    transform: translateY(0px) rotate(-6deg);
+    opacity: 0.04;
+  }
+
+  50% {
+    transform: translateY(-18px) rotate(-3deg);
+    opacity: 0.07;
+  }
+}
+
+/* ─── Partner Footer ─── */
+.partner-footer {
+  width: 100%;
+  max-width: 860px;
+  margin-top: 3rem;
+  padding: 1.5rem 0 2rem;
+  border-top: 1px solid var(--border-color);
+  position: relative;
+  z-index: 1;
+}
+
+.partner-footer-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.85rem;
+}
+
+.partner-label {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+}
+
+.partner-logo-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.partner-logo-wrap::before {
+  content: '';
+  position: absolute;
+  inset: -12px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.15), transparent 70%);
+  animation: partner-glow 3s ease-in-out infinite;
+}
+
+@keyframes partner-glow {
+
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+}
+
+.partner-logo-img {
+  width: 120px;
+  height: auto;
+  display: block;
+  filter: brightness(0) invert(1);
+  /* ensures white logo shows on dark bg */
+  opacity: 0.75;
+  transition: opacity 0.3s, filter 0.3s;
+  animation: partner-float 6s ease-in-out infinite;
+  position: relative;
+  z-index: 1;
+}
+
+.partner-logo-img:hover {
+  opacity: 1;
+  filter: brightness(0) invert(1) drop-shadow(0 0 12px rgba(99, 102, 241, 0.8));
+}
+
+@keyframes partner-float {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
+
 
 .app-header {
   width: 100%;

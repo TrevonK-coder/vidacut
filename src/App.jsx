@@ -174,6 +174,31 @@ function AppInner() {
           </>
         )}
       </main>
+
+      {/* ─── Partner Footer ─── */}
+      <footer className="partner-footer">
+        <div className="partner-footer-inner">
+          <span className="partner-label">Partner in Development</span>
+          <div className="partner-logo-wrap">
+            <img
+              src="/vidacut/partner-logo.png"
+              alt="Partner Logo"
+              className="partner-logo-img"
+              onError={e => { e.currentTarget.style.display = 'none'; }}
+            />
+          </div>
+        </div>
+      </footer>
+
+      {/* ─── Floating Watermark ─── */}
+      <div className="watermark-wrap" aria-hidden="true">
+        <img
+          src="/vidacut/partner-logo.png"
+          alt=""
+          className="watermark-img"
+          onError={e => { e.currentTarget.style.display = 'none'; }}
+        />
+      </div>
     </div>
   );
 }

@@ -67,10 +67,11 @@ export const refineContent = geminiRefine;
  * @returns {string}
  */
 export function generateStoryboardImage(description) {
+    const seed = Math.abs(description.split('').reduce((a, c) => (a << 5) - a + c.charCodeAt(0), 0)) % 9999;
     const prompt = encodeURIComponent(
-        `rough pencil sketch storyboard frame, ${description}, film production sketch, simple line drawing, black and white`
+        `storyboard sketch, ${description}, pencil drawing, film production frame, simple black and white line art`
     );
-    return `https://image.pollinations.ai/prompt/${prompt}?width=512&height=288&nologo=true&model=flux`;
+    return `https://image.pollinations.ai/prompt/${prompt}?width=640&height=360&seed=${seed}&nologo=true`;
 }
 
 /**
