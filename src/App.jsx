@@ -3,6 +3,7 @@ import MediaSelector from './components/MediaSelector/MediaSelector';
 import PromptBox from './components/PromptBox/PromptBox';
 import AILoading from './components/AILoading/AILoading';
 import { processVideos } from './lib/ffmpeg/videoProcessor';
+import { detectBeats } from './lib/audio/beatDetector';
 import './index.css';
 import './App.css';
 
@@ -26,9 +27,17 @@ function App() {
     setError(null);
 
     try {
+      let beatDurations = null;
+      if (audio) {
+        setLoadingStatus('Analyzing audio beats...');
+        beatDurations = await detectBeats(audio);
+      }
+
+      setLoadingStatus('Initializing video processor...');
       const url = await processVideos(
         videos,
         audio,
+        beatDurations,
         (progress) => setRenderProgress(progress),
         (msg) => setLoadingStatus(msg)
       );

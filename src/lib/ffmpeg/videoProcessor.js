@@ -45,7 +45,7 @@ async function loadFFmpeg(onLog) {
  * @param {Function} onLog       (string) => void
  * @returns {Promise<string>} Object URL of the final MP4
  */
-export async function processVideos(videoFiles, audioFile, onProgress, onLog) {
+export async function processVideos(videoFiles, audioFile, beatDurations, onProgress, onLog) {
     const ff = await loadFFmpeg(onLog);
 
     ff.on('progress', ({ progress }) => {
@@ -67,45 +67,56 @@ export async function processVideos(videoFiles, audioFile, onProgress, onLog) {
         await ff.writeFile('audio_in.mp3', await fetchFile(audioFile));
     }
 
-    // ── Step 2: Re-encode each clip to a common H.264/AAC profile ──
-    // This normalises codec, frame rate, pixel format, and resolution so
-    // the concat filter works reliably and the output is browser-compatible.
+    // ── Step 2: Re-encode each clip to a common H.264 profile ──
+    // We drop the audio (-an) because we are either replacing it or muting it per requirements.
     const encodedNames = [];
     for (let i = 0; i < rawNames.length; i++) {
         const outName = `enc_${i}.mp4`;
         if (onLog) onLog(`Re-encoding clip ${i + 1} of ${rawNames.length}…`);
         await ff.exec([
             '-i', rawNames[i],
-            // Video: H.264, yuv420p pixel format, scale to even width/height
             '-c:v', 'libx264',
-            '-preset', 'ultrafast',   // fastest encode; quality still good for preview
+            '-preset', 'ultrafast',
             '-crf', '23',
             '-pix_fmt', 'yuv420p',
-            // Force even dimensions (H.264 requirement)
             '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2',
-            '-r', '30',               // normalise frame rate
-            // Audio: AAC stereo
-            '-c:a', 'aac',
-            '-ar', '44100',
-            '-ac', '2',
-            '-b:a', '128k',
-            // Enable web streaming
+            '-r', '30',
+            '-an', // Strip original audio
             '-movflags', '+faststart',
             outName,
         ]);
         encodedNames.push(outName);
     }
 
-    // ── Step 3: Concat all re-encoded clips ──
-    const concatList = encodedNames.map(n => `file '${n}'`).join('\n');
-    await ff.writeFile('concat.txt', concatList);
+    // ── Step 3: Concat all re-encoded clips according to beats ──
+    const concatList = [];
+    if (beatDurations && beatDurations.length > 0) {
+        let videoIdx = 0;
+        for (let i = 0; i < beatDurations.length; i++) {
+            const duration = beatDurations[i];
+            const vName = encodedNames[videoIdx];
+
+            concatList.push(`file '${vName}'`);
+            concatList.push(`inpoint 0`);
+            concatList.push(`outpoint ${duration.toFixed(3)}`);
+
+            // Loop through the uploaded videos
+            videoIdx = (videoIdx + 1) % encodedNames.length;
+        }
+    } else {
+        // Normal concat if no beats
+        for (const n of encodedNames) {
+            concatList.push(`file '${n}'`);
+        }
+    }
+
+    await ff.writeFile('concat.txt', concatList.join('\n'));
 
     if (onLog) onLog('Concatenating clips…');
     await ff.exec([
         '-f', 'concat',
         '-safe', '0',
         '-i', 'concat.txt',
-        // Copy the already-normalised streams — no re-encode needed here
         '-c', 'copy',
         'concat_out.mp4',
     ]);
@@ -113,19 +124,16 @@ export async function processVideos(videoFiles, audioFile, onProgress, onLog) {
     // ── Step 4: Mix audio track (if provided) ──
     let finalFile;
     if (audioFile) {
-        if (onLog) onLog('Mixing audio track…');
+        if (onLog) onLog('Adding audio track…');
         await ff.exec([
             '-i', 'concat_out.mp4',
             '-i', 'audio_in.mp3',
-            '-filter_complex',
-            // amix: blend original video audio with user track
-            '[0:a][1:a]amix=inputs=2:duration=shortest:dropout_transition=3[amix]',
-            '-map', '0:v',
-            '-map', '[amix]',
+            '-map', '0:v',            // use video from the first input
+            '-map', '1:a',            // use audio from the second input
             '-c:v', 'copy',           // video already encoded — just copy
-            '-c:a', 'aac',
+            '-c:a', 'aac',            // encode the new audio to aac
             '-b:a', '128k',
-            '-shortest',
+            '-shortest',              // end when the shortest stream ends
             '-movflags', '+faststart',
             'output.mp4',
         ]);
