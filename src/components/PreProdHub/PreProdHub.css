@@ -1,0 +1,179 @@
+.preprod-hub {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    animation: slide-up 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hub-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.hub-header h2 {
+    font-size: 2rem;
+    font-weight: 700;
+}
+
+.hub-cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+@media (max-width: 640px) {
+    .hub-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ─── Card ─── */
+.hub-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 2rem;
+    text-align: left;
+    border-radius: var(--border-radius-lg);
+    border: 1px solid var(--border-color);
+    background: var(--bg-elevated);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.hub-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0, 0, 0, 0.4);
+}
+
+.hub-card.gradient-purple:hover {
+    border-color: var(--accent-primary);
+    box-shadow: 0 16px 48px rgba(99, 102, 241, 0.2);
+}
+
+.hub-card.gradient-pink:hover {
+    border-color: #ec4899;
+    box-shadow: 0 16px 48px rgba(236, 72, 153, 0.2);
+}
+
+/* Glow blob behind card */
+.hub-card-glow {
+    position: absolute;
+    top: -60px;
+    right: -60px;
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    opacity: 0.12;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+
+.hub-card.gradient-purple .hub-card-glow {
+    background: radial-gradient(circle, var(--accent-primary), transparent);
+}
+
+.hub-card.gradient-pink .hub-card-glow {
+    background: radial-gradient(circle, #ec4899, transparent);
+}
+
+.hub-card:hover .hub-card-glow {
+    opacity: 0.22;
+}
+
+/* Icon */
+.hub-card-icon-wrap {
+    width: 52px;
+    height: 52px;
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.gradient-purple .hub-card-icon-wrap {
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(139, 92, 246, 0.15));
+    border: 1px solid rgba(99, 102, 241, 0.3);
+    color: var(--accent-primary);
+}
+
+.gradient-pink .hub-card-icon-wrap {
+    background: linear-gradient(135deg, rgba(236, 72, 153, 0.25), rgba(244, 114, 182, 0.15));
+    border: 1px solid rgba(236, 72, 153, 0.3);
+    color: #ec4899;
+}
+
+/* Content */
+.hub-card-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    flex: 1;
+}
+
+.hub-card-subtitle {
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.gradient-purple .hub-card-subtitle {
+    color: var(--accent-primary);
+}
+
+.gradient-pink .hub-card-subtitle {
+    color: #ec4899;
+}
+
+.hub-card-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.hub-card-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-top: 0.25rem;
+}
+
+/* Tags */
+.hub-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-top: 0.75rem;
+}
+
+.hub-tag {
+    font-size: 0.72rem;
+    font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--border-radius-full);
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+}
+
+/* Arrow */
+.hub-card-arrow {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.75rem;
+    font-size: 1.25rem;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    color: var(--text-primary);
+}
+
+.hub-card:hover .hub-card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+}

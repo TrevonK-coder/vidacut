@@ -10,12 +10,19 @@
 
 .app-header {
   width: 100%;
-  max-width: 800px;
+  max-width: 860px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
   margin-bottom: 3rem;
+}
+
+/* Top row: logo + mode toggle side by side */
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
 }
 
 .logo {
@@ -23,6 +30,41 @@
   font-weight: 700;
   letter-spacing: -0.5px;
 }
+
+/* ── Mode Toggle Pill ── */
+.mode-toggle {
+  display: flex;
+  gap: 0.35rem;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-full);
+  padding: 0.25rem;
+}
+
+.mode-btn {
+  padding: 0.45rem 1.1rem;
+  border-radius: var(--border-radius-full);
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.2s ease, background 0.2s ease;
+  white-space: nowrap;
+}
+
+.mode-btn:hover {
+  color: var(--text-primary);
+}
+
+.mode-btn.active {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
+  color: #fff;
+  box-shadow: 0 2px 10px rgba(99, 102, 241, 0.35);
+}
+
+
 
 /* Wizard Steps Indicator */
 .step-indicator {
@@ -61,11 +103,12 @@
 /* Wizard Content */
 .wizard-content {
   width: 100%;
-  max-width: 800px;
+  max-width: 860px;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
+
 
 .wizard-step {
   width: 100%;

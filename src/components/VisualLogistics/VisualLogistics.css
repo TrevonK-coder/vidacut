@@ -1,0 +1,254 @@
+@import '../ScriptBrief/ScriptBrief.css';
+
+/* ─── Mood Board ─── */
+.moodboard-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.mood-section {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.mood-section-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.mood-section-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.mood-actions {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.mood-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.3rem 0.65rem;
+    border-radius: var(--border-radius-full);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.mood-action-btn:hover {
+    color: var(--text-primary);
+    border-color: var(--accent-primary);
+}
+
+.mood-empty {
+    font-size: 0.8rem;
+    font-style: italic;
+    padding: 0.5rem 0;
+}
+
+.mood-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.mood-img-wrap {
+    position: relative;
+    border-radius: var(--border-radius-sm);
+    overflow: hidden;
+}
+
+.mood-img {
+    width: 120px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
+    display: block;
+    border: 1px solid var(--border-color);
+}
+
+.mood-item-del {
+    position: absolute;
+    top: 4px;
+    right: 4px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6);
+    border: none;
+    color: #fff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.mood-img-wrap:hover .mood-item-del,
+.mood-text-wrap:hover .mood-item-del {
+    opacity: 1;
+}
+
+.mood-text-wrap {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-sm);
+    padding: 0.4rem 0.65rem;
+    position: relative;
+}
+
+.mood-text-wrap .mood-item-del {
+    position: static;
+    opacity: 1;
+    background: none;
+    color: var(--text-muted);
+    transition: color 0.2s ease;
+}
+
+.mood-text-wrap .mood-item-del:hover {
+    color: var(--danger);
+}
+
+.mood-type-badge {
+    font-size: 0.85rem;
+}
+
+.mood-text-input {
+    background: none;
+    border: none;
+    color: var(--text-primary);
+    font-size: 0.85rem;
+    width: 220px;
+    outline: none;
+}
+
+/* ─── Production Checklist ─── */
+.checklist-progress {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    padding: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+.cp-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.cp-count {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.cp-pct {
+    font-size: 0.9rem;
+    font-weight: 700;
+    text-align: right;
+    margin-top: -0.25rem;
+}
+
+.checklist-category {
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+}
+
+.cc-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cc-title {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.cc-badge {
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--border-radius-full);
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    color: var(--accent-primary);
+}
+
+.cc-items {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.cc-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 0.55rem 0.75rem;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid transparent;
+    background: none;
+    cursor: pointer;
+    text-align: left;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.cc-item:hover {
+    background: var(--bg-surface);
+    border-color: var(--border-color);
+}
+
+.cc-item.checked {
+    background: rgba(16, 185, 129, 0.06);
+    border-color: rgba(16, 185, 129, 0.2);
+}
+
+.cc-checkbox {
+    flex-shrink: 0;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+}
+
+.cc-item.checked .cc-checkbox {
+    color: var(--success);
+}
+
+.cc-label {
+    font-size: 0.875rem;
+    color: var(--text-primary);
+    transition: color 0.15s ease;
+}
+
+.cc-item.checked .cc-label {
+    color: var(--text-muted);
+    text-decoration: line-through;
+}
+
+/* ─── Shared between vl sections ─── */
+.vl-section {
+    width: 100%;
+}
