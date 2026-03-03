@@ -16,7 +16,7 @@
   bottom: 5%;
   right: -4%;
   width: 320px;
-  opacity: 0.04;
+  opacity: 0.14;
   pointer-events: none;
   z-index: 0;
   animation: watermark-float 8s ease-in-out infinite;
@@ -35,7 +35,7 @@
   0%,
   100% {
     transform: translateY(0px) rotate(-6deg);
-    opacity: 0.04;
+    opacity: 0.14;
   }
 
   50% {
@@ -106,7 +106,7 @@
   display: block;
   filter: invert(1);
   mix-blend-mode: screen;
-  opacity: 0.85;
+  opacity: 1;
   transition: opacity 0.3s, transform 0.3s, filter 0.3s;
   animation: partner-float 6s ease-in-out infinite;
   position: relative;
