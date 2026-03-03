@@ -7,7 +7,7 @@ import './ScriptBrief.css';
 // ─── Shared AI Refine Button ───────────────────────────────────────────────────
 
 function AIRefineBtn({ type, content, onResult }) {
-    const { plan, apiKey } = usePlan();
+    const { plan } = usePlan();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -20,12 +20,11 @@ function AIRefineBtn({ type, content, onResult }) {
     }
 
     const handleRefine = async () => {
-        if (!apiKey) { setError('Add your Gemini API key in Settings ⚙️'); return; }
         if (!content?.trim()) { setError('Add some content first to refine.'); return; }
         setError(null);
         setLoading(true);
         try {
-            const result = await geminiRefine(apiKey, type, content);
+            const result = await geminiRefine(null, type, content);
             onResult(result);
         } catch (e) {
             setError(e.message);
@@ -223,7 +222,7 @@ const ANGLES = ['Wide', 'Medium', 'Close-Up', 'Extreme Close-Up', 'Over-The-Shou
 
 function ShotList() {
     const [shots, setShots] = useState([{ id: 1, scene: '1', description: '', angle: 'Wide', duration: '', notes: '', image: null, imageLoading: false }]);
-    const { plan, apiKey } = usePlan();
+    const { plan } = usePlan();
 
     const addShot = () => setShots((p) => [...p, { id: Date.now(), scene: '', description: '', angle: 'Wide', duration: '', notes: '', image: null, imageLoading: false }]);
     const removeShot = (id) => setShots((p) => p.filter((s) => s.id !== id));

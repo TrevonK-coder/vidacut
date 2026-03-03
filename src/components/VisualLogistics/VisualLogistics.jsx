@@ -7,7 +7,7 @@ import './VisualLogistics.css';
 // ─── Shared: AI Refine inline ─────────────────────────────────────────────────
 
 function AIRefineInline({ type, content, onResult }) {
-    const { plan, apiKey } = usePlan();
+    const { plan } = usePlan();
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
@@ -16,11 +16,10 @@ function AIRefineInline({ type, content, onResult }) {
     }
 
     const handleRefine = async () => {
-        if (!apiKey) { setError('Add API key in Settings ⚙️'); return; }
         if (!content?.trim()) { setError('Add content first.'); return; }
         setError(null);
         setLoading(true);
-        try { onResult(await geminiRefine(apiKey, type, content)); }
+        try { onResult(await geminiRefine(null, type, content)); }
         catch (e) { setError(e.message); }
         finally { setLoading(false); }
     };
@@ -189,18 +188,18 @@ function ProductionChecklist() {
     const [aiContext, setAiContext] = useState('');
     const [aiLoading, setAiLoading] = useState(false);
     const [aiError, setAiError] = useState(null);
-    const { plan, apiKey } = usePlan();
+    const { plan } = usePlan();
 
     const toggle = (cat, id) =>
         setChecks((p) => ({ ...p, [cat]: p[cat].map((item) => item.id === id ? { ...item, checked: !item.checked } : item) }));
 
     const addAIItems = async () => {
-        if (!apiKey) { setAiError('Add your Gemini API key in Settings ⚙️'); return; }
+
         if (!aiContext.trim()) { setAiError('Describe your shoot first.'); return; }
         setAiError(null);
         setAiLoading(true);
         try {
-            const result = await geminiRefine(apiKey, 'checklist', aiContext);
+            const result = await geminiRefine(null, 'checklist', aiContext);
             const newItems = result.split('\n')
                 .map((l) => l.replace(/^[-•*]\s*/, '').trim())
                 .filter((l) => l.length > 3)
