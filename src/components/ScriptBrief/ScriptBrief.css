@@ -646,3 +646,234 @@
 .spin-slow {
     animation: spin 1.2s linear infinite;
 }
+
+/* ─── Generate-from-Brief panel ─── */
+.generate-brief-panel {
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.85rem;
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    position: relative;
+    overflow: hidden;
+}
+
+.generate-brief-panel::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.06), rgba(139, 92, 246, 0.03));
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.generate-brief-panel.locked {
+    border-color: rgba(244, 63, 94, 0.2);
+}
+
+.generate-brief-panel.locked::before {
+    background: rgba(244, 63, 94, 0.04);
+}
+
+.gbp-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.gbp-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.gbp-sub {
+    font-size: 0.78rem;
+    margin-top: 0.2rem;
+}
+
+.gbp-inputs {
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.gbp-attach-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--border-radius-full);
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s;
+    min-height: 40px;
+}
+
+.gbp-attach-btn:hover:not(.disabled) {
+    color: var(--text-primary);
+    border-color: var(--accent-primary);
+}
+
+.gbp-attach-btn.recording {
+    border-color: var(--danger);
+    color: var(--danger);
+}
+
+.gbp-attach-btn.disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
+@keyframes pulse-red {
+
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4);
+    }
+
+    50% {
+        box-shadow: 0 0 0 6px rgba(244, 63, 94, 0);
+    }
+}
+
+.gbp-attach-btn.recording {
+    animation: pulse-red 1s ease-in-out infinite;
+}
+
+.recording-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--danger);
+    flex-shrink: 0;
+    animation: pulse-red 0.8s ease-in-out infinite;
+}
+
+.gbp-img-preview {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+.gbp-img-preview img {
+    width: 48px;
+    height: 48px;
+    object-fit: cover;
+    border-radius: var(--border-radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.gbp-img-preview button {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--danger);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    cursor: pointer;
+    border: none;
+}
+
+/* Export JPG — green button */
+.export-jpg-btn {
+    background: linear-gradient(135deg, #16a34a, #22c55e) !important;
+    box-shadow: 0 4px 14px rgba(34, 197, 94, 0.35) !important;
+    flex: unset !important;
+    padding: 0.7rem 1.1rem !important;
+    font-size: 0.85rem !important;
+}
+
+.export-jpg-btn:hover:not(:disabled) {
+    box-shadow: 0 6px 20px rgba(34, 197, 94, 0.5) !important;
+}
+
+/* ─── Mobile ─── */
+@media (max-width: 640px) {
+    .sb-container {
+        gap: 1rem;
+    }
+
+    .sb-head h2 {
+        font-size: 1.35rem;
+    }
+
+    .sb-tabs {
+        gap: 0.2rem;
+        overflow-x: auto;
+        flex-wrap: nowrap;
+    }
+
+    .sb-tab {
+        font-size: 0.76rem;
+        padding: 0.5rem 0.7rem;
+        white-space: nowrap;
+    }
+
+    .sb-panel {
+        padding: 0.75rem;
+    }
+
+    .script-table-header {
+        display: none;
+    }
+
+    .script-row {
+        grid-template-columns: 36px 1fr;
+        grid-template-rows: auto auto;
+        gap: 0.4rem;
+        padding: 0.5rem;
+    }
+
+    .script-row .col-action {
+        grid-column: 2;
+    }
+
+    .treatment-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .shot-card-meta {
+        flex-direction: column;
+    }
+
+    .shot-img {
+        width: 100%;
+        height: auto;
+        max-height: 160px;
+    }
+
+    .sb-actions {
+        flex-direction: column;
+    }
+
+    .sb-actions button {
+        width: 100%;
+        flex: unset;
+    }
+
+    .generate-brief-panel {
+        padding: 0.85rem;
+    }
+
+    .gbp-inputs {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}

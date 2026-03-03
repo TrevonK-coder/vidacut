@@ -278,8 +278,65 @@
   font-size: 0.85rem;
   max-width: 520px;
   word-break: break-all;
-  background: rgba(239, 68, 68, 0.08);
-  border: 1px solid rgba(239, 68, 68, 0.2);
+  background: var(--danger-dim);
+  border: 1px solid var(--danger-border);
   border-radius: var(--border-radius-sm);
   padding: 0.75rem 1rem;
+}
+
+/* ─── Mobile Responsive ─── */
+@media (max-width: 640px) {
+  .app-container {
+    padding: 1rem 0.75rem;
+  }
+
+  .app-header {
+    margin-bottom: 1.5rem;
+    gap: 1rem;
+  }
+
+  .logo {
+    font-size: 1.4rem;
+  }
+
+  .header-top {
+    gap: 0.5rem;
+  }
+
+  .header-controls {
+    gap: 0.35rem;
+  }
+
+  .mode-toggle {
+    gap: 0.2rem;
+    padding: 0.2rem;
+  }
+
+  .mode-btn {
+    font-size: 0.72rem;
+    padding: 0.4rem 0.6rem;
+    min-height: 36px;
+  }
+
+  .settings-gear {
+    width: 34px;
+    height: 34px;
+  }
+
+  .step-indicator {
+    gap: 0.5rem;
+    font-size: 0.76rem;
+  }
+
+  .wizard-content {
+    max-width: 100%;
+  }
+
+  .wizard-step {
+    padding: 1rem;
+  }
+
+  .output-video {
+    border-radius: var(--border-radius-sm);
+  }
 }
