@@ -9,6 +9,7 @@ import PreProdHub from './components/PreProdHub/PreProdHub';
 import ScriptBrief from './components/ScriptBrief/ScriptBrief';
 import VisualLogistics from './components/VisualLogistics/VisualLogistics';
 import SettingsPanel from './components/SettingsPanel/SettingsPanel';
+import GTBHub from './components/GTBHub/GTBHub';
 import { PlanProvider } from './context/PlanContext';
 import { processVideos } from './lib/ffmpeg/videoProcessor';
 import { detectBeats } from './lib/audio/beatDetector';
@@ -65,6 +66,7 @@ function AppInner() {
   const [activeMode, setActiveMode] = useState('editor');
   const [preProdSection, setPreProdSection] = useState(null);
   const [settingsOpen, setSettingsOpen] = useState(false);
+  const [gtbHubOpen, setGtbHubOpen] = useState(false);
 
   // Start choice: null = show modal; 'ai' = AI wizard; 'manual' = pro editor
   const [editorMode, setEditorMode] = useState(null);
@@ -146,6 +148,7 @@ function AppInner() {
   return (
     <div className="app-container">
       {settingsOpen && <SettingsPanel onClose={() => setSettingsOpen(false)} />}
+      <GTBHub open={gtbHubOpen} onClose={() => setGtbHubOpen(false)} />
 
       <header className="app-header">
         <div className="header-top">
@@ -263,14 +266,20 @@ function AppInner() {
       <footer className="partner-footer">
         <div className="partner-footer-inner">
           <span className="partner-label">Partner in Development</span>
-          <div className="partner-logo-wrap">
+          <button
+            className="partner-logo-wrap partner-logo-btn"
+            onClick={() => setGtbHubOpen(true)}
+            title="Open GTB Collective Hub"
+            aria-label="Open GTB Collective Hub"
+          >
             <img
               src="/vidacut/partner-logo.png"
-              alt="Partner Logo"
+              alt="GTB Logo"
               className="partner-logo-img"
               onError={e => { e.currentTarget.style.display = 'none'; }}
             />
-          </div>
+            <span className="partner-tap-hint">Tap to explore ↑</span>
+          </button>
         </div>
       </footer>
 
