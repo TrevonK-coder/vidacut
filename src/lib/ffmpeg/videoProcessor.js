@@ -45,15 +45,13 @@ async function loadFFmpeg(onLog) {
  * @param {Function} onLog       (string) => void
  * @returns {Promise<string>} Object URL of the final MP4
  */
-export async function processVideos(videoFiles, audioFile, beatDurations, onProgress, onLog) {
+export async function processVideos(videoFiles, audioFile, beatDurations, onProgress, onLog, editorSettings) {
     const ff = await loadFFmpeg(onLog);
 
     ff.on('progress', ({ progress }) => {
-        // progress is 0–1; cap at 95 so we can show 100 when packaging
         if (onProgress) onProgress(Math.min(Math.round(progress * 100), 95));
     });
 
-    // ── Step 1: Write raw files into the WASM virtual FS ──
     const rawNames = [];
     for (let i = 0; i < videoFiles.length; i++) {
         const rawName = `raw_${i}.mp4`;
@@ -67,26 +65,33 @@ export async function processVideos(videoFiles, audioFile, beatDurations, onProg
         await ff.writeFile('audio_in.mp3', await fetchFile(audioFile));
     }
 
-    // ── Step 2: Re-encode each clip to a common H.264 profile ──
-    // We drop the audio (-an) because we are either replacing it or muting it per requirements.
+    // ── Step 2: Re-encode each clip with optional effects filter chain ──
     const encodedNames = [];
     for (let i = 0; i < rawNames.length; i++) {
         const outName = `enc_${i}.mp4`;
-        if (onLog) onLog(`Re-encoding clip ${i + 1} of ${rawNames.length}…`);
+        if (onLog) onLog(`Re-encoding clip ${i + 1} of ${rawNames.length}${editorSettings ? ' + applying effects' : ''}…`);
+
+        // Build video filter — always scale; append editor VF if provided
+        const baseVF = 'scale=trunc(iw/2)*2:trunc(ih/2)*2';
+        const vfFilter = editorSettings?.ffmpegVF
+            ? editorSettings.ffmpegVF  // effectsProcessor already includes scale
+            : baseVF;
+
         await ff.exec([
             '-i', rawNames[i],
             '-c:v', 'libx264',
             '-preset', 'ultrafast',
             '-crf', '23',
             '-pix_fmt', 'yuv420p',
-            '-vf', 'scale=trunc(iw/2)*2:trunc(ih/2)*2',
+            '-vf', vfFilter,
             '-r', '30',
-            '-an', // Strip original audio
+            '-an',
             '-movflags', '+faststart',
             outName,
         ]);
         encodedNames.push(outName);
     }
+
 
     // ── Step 3: Concat all re-encoded clips according to beats ──
     const concatList = [];

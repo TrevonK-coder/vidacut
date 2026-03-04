@@ -3,6 +3,7 @@ import { Settings } from 'lucide-react';
 import MediaSelector from './components/MediaSelector/MediaSelector';
 import PromptBox from './components/PromptBox/PromptBox';
 import AILoading from './components/AILoading/AILoading';
+import EditorPanel from './components/EditorPanel/EditorPanel';
 import PreProdHub from './components/PreProdHub/PreProdHub';
 import ScriptBrief from './components/ScriptBrief/ScriptBrief';
 import VisualLogistics from './components/VisualLogistics/VisualLogistics';
@@ -28,6 +29,7 @@ function AppInner() {
   const [loadingStatus, setLoadingStatus] = useState('Initializing...');
   const [outputVideoUrl, setOutputVideoUrl] = useState(null);
   const [error, setError] = useState(null);
+  const [editorSettings, setEditorSettings] = useState(null); // from EditorPanel
 
   const handleModeSwitch = (mode) => {
     setActiveMode(mode);
@@ -50,7 +52,8 @@ function AppInner() {
       const url = await processVideos(
         videos, audio, beatDurations,
         (p) => setRenderProgress(p),
-        (m) => setLoadingStatus(m)
+        (m) => setLoadingStatus(m),
+        editorSettings,
       );
       setOutputVideoUrl(url);
     } catch (err) {
@@ -153,10 +156,18 @@ function AppInner() {
                 {!isGenerating && !error && outputVideoUrl && (
                   <div className="render-complete text-center">
                     <h2 className="gradient-text">Video Complete! 🎬</h2>
-                    <p className="text-muted mt-md mb-l">Your AI-edited video is ready to preview and download.</p>
+                    <p className="text-muted mt-md mb-l">Preview your edit below. Use the editor panel to adjust color, effects, transitions and speed — then re-render.</p>
                     <video className="output-video" src={outputVideoUrl} controls autoPlay />
+
+                    {/* ── Editor Panel ── */}
+                    <EditorPanel
+                      videoUrl={outputVideoUrl}
+                      onSettingsChange={setEditorSettings}
+                    />
+
                     <div className="btn-group justify-center mt-l">
                       <button className="btn-secondary" onClick={handleStartOver}>Start Over</button>
+                      <button className="btn-secondary" onClick={handleGenerate}>🔄 Re-Render with Effects</button>
                       <button className="btn-primary" onClick={handleDownload}>⬇ Download MP4</button>
                     </div>
                   </div>
