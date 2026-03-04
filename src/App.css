@@ -104,9 +104,10 @@
   width: 140px;
   height: auto;
   display: block;
-  filter: invert(1);
-  mix-blend-mode: screen;
-  opacity: 1;
+  /* Boost brightness + white glow so logo is always visible on dark bg */
+  filter: brightness(0) invert(1) drop-shadow(0 0 8px rgba(255, 255, 255, 0.6));
+  mix-blend-mode: normal;
+  opacity: 0.9;
   transition: opacity 0.3s, transform 0.3s, filter 0.3s;
   animation: partner-float 6s ease-in-out infinite;
   position: relative;

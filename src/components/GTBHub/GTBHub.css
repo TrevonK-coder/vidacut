@@ -14,8 +14,13 @@
 }
 
 @keyframes gtb-overlay-in {
-  from { opacity: 0; }
-  to   { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* ─── Panel ─── */
@@ -33,14 +38,28 @@
 
   /* Scrollbar */
   scrollbar-width: thin;
-  scrollbar-color: rgba(99,102,241,0.3) transparent;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
 }
-.gtb-panel::-webkit-scrollbar { width: 4px; }
-.gtb-panel::-webkit-scrollbar-thumb { background: rgba(99,102,241,0.3); border-radius: 4px; }
+
+.gtb-panel::-webkit-scrollbar {
+  width: 4px;
+}
+
+.gtb-panel::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 4px;
+}
 
 @keyframes gtb-slide-up {
-  from { opacity: 0; transform: translateY(40px); }
-  to   { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* ─── Top Bar ─── */
@@ -61,7 +80,7 @@
   width: 52px;
   height: 52px;
   object-fit: contain;
-  filter: invert(1);
+  filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.4));
   animation: partner-float 6s ease-in-out infinite;
 }
 
@@ -99,8 +118,8 @@
 
 .gtb-close:hover {
   color: #fff;
-  border-color: rgba(99,102,241,0.7);
-  background: rgba(99,102,241,0.15);
+  border-color: rgba(99, 102, 241, 0.7);
+  background: rgba(99, 102, 241, 0.15);
 }
 
 /* ─── Tagline ─── */
@@ -108,7 +127,7 @@
   font-size: 0.9rem;
   color: var(--text-muted);
   line-height: 1.6;
-  border-left: 2px solid rgba(99,102,241,0.5);
+  border-left: 2px solid rgba(99, 102, 241, 0.5);
   padding-left: 1rem;
   margin: 0;
 }
@@ -119,7 +138,7 @@
   font-weight: 700;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: rgba(99,102,241,0.7);
+  color: rgba(99, 102, 241, 0.7);
   font-family: 'DM Mono', 'Courier New', monospace;
 }
 
@@ -147,7 +166,9 @@
 .gtb-member-card::before {
   content: '';
   position: absolute;
-  top: 0; left: 0; right: 0;
+  top: 0;
+  left: 0;
+  right: 0;
   height: 2px;
   background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
   opacity: 0;
@@ -155,9 +176,9 @@
 }
 
 .gtb-member-card:hover {
-  border-color: rgba(99,102,241,0.5);
+  border-color: rgba(99, 102, 241, 0.5);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(99,102,241,0.15);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.15);
 }
 
 .gtb-member-card:hover::before {
@@ -194,7 +215,7 @@
 /* ─── Developer Section ─── */
 .gtb-dev-card {
   background: var(--bg-surface);
-  border: 1px solid rgba(99,102,241,0.25);
+  border: 1px solid rgba(99, 102, 241, 0.25);
   border-radius: 0.85rem;
   padding: 1.4rem 1.5rem;
   display: flex;
@@ -207,9 +228,11 @@
 .gtb-dev-card::after {
   content: '';
   position: absolute;
-  top: 0; right: 0;
-  width: 120px; height: 120px;
-  background: radial-gradient(circle, rgba(99,102,241,0.12), transparent 70%);
+  top: 0;
+  right: 0;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(99, 102, 241, 0.12), transparent 70%);
   pointer-events: none;
 }
 
@@ -270,11 +293,11 @@
 .gtb-link-cv {
   background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary));
   color: #fff;
-  box-shadow: 0 4px 14px rgba(99,102,241,0.35);
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
 }
 
 .gtb-link-cv:hover {
-  box-shadow: 0 6px 20px rgba(99,102,241,0.5);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
 }
 
 .gtb-link-gh {
@@ -284,7 +307,7 @@
 }
 
 .gtb-link-gh:hover {
-  border-color: rgba(99,102,241,0.5);
+  border-color: rgba(99, 102, 241, 0.5);
   color: #fff;
 }
 
@@ -312,7 +335,9 @@
     gap: 1.1rem;
   }
 
-  .gtb-brand-name { font-size: 1.25rem; }
+  .gtb-brand-name {
+    font-size: 1.25rem;
+  }
 
   .gtb-grid {
     grid-template-columns: repeat(2, 1fr);
