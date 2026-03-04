@@ -93,7 +93,9 @@ export default function GTBHub({ open, onClose }) {
 
                 {/* ── Footer ── */}
                 <div className="gtb-footer-note">
-                    <span className="gradient-text">Glad To Be</span> · Powered by VidaCut AI · GTB Collective © 2026
+                    <a href="https://trevonk-coder.github.io/GTB/" target="_blank" rel="noopener noreferrer" className="gtb-site-link">🌐 GTB Collective Site ↗</a>
+                    <span style={{ margin: '0 6px', opacity: 0.3 }}>·</span>
+                    <span className="gradient-text">Glad To Be</span> · Powered by VidaCut AI · © 2026
                 </div>
 
             </div>

@@ -325,6 +325,23 @@
   letter-spacing: 0.06em;
   padding-top: 0.5rem;
   border-top: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.gtb-site-link {
+  color: var(--accent-primary);
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition: opacity 0.2s;
+}
+
+.gtb-site-link:hover {
+  opacity: 0.75;
 }
 
 /* ─── Responsive ─── */
