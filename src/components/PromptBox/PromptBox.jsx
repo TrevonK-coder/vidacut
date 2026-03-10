@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Sparkles, Type } from 'lucide-react';
+import { usePlan } from '../../context/PlanContext';
 import './PromptBox.css';
 
 export default function PromptBox({ prompt, setPrompt }) {
+    const { projectScript } = usePlan();
+
+    useEffect(() => {
+        if (projectScript && !prompt) {
+            setPrompt("Generate a video based on this script:\n\n" + projectScript);
+        }
+    }, [projectScript, setPrompt, prompt]);
+
     return (
         <div className="prompt-container glass-panel">
             <div className="prompt-header">
@@ -11,7 +20,7 @@ export default function PromptBox({ prompt, setPrompt }) {
             </div>
 
             <p className="text-muted text-sm mb-md">
-                Describe the pacing, mood, and style. The AI will analyze this to determine where to cut the video perfectly to your audio track.
+                Describe the pacing, mood, and style. The AI will analyze this to determine where to cut the video perfectly to your audio track. {projectScript && " (Your generated script has been loaded!)"}
             </p>
 
             <div className="prompt-input-wrapper">

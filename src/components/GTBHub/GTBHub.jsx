@@ -23,7 +23,7 @@ export default function GTBHub({ open, onClose }) {
                 <div className="gtb-topbar">
                     <div className="gtb-brand">
                         <img
-                            src="/vidacut/partner-logo.png"
+                            src="/partner-logo.png"
                             alt="GTB Logo"
                             className="gtb-brand-logo"
                             onError={e => { e.currentTarget.style.display = 'none'; }}

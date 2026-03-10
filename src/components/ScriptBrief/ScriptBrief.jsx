@@ -201,7 +201,7 @@ const SCRIPT_HINTS = [
 
 function ScriptEditor() {
     const [scenes, setScenes] = useState([{ id: 1, scene: '1', voiceover: '', action: '' }]);
-    const { plan } = usePlan();
+    const { plan, setProjectScript } = usePlan();
 
     // Generate-from-brief state
     const [brief, setBrief] = useState('');
@@ -252,7 +252,11 @@ function ScriptEditor() {
         try {
             const raw = await geminiRefine(null, 'script', brief, briefImage?.base64, briefImage?.type);
             const parsed = parseAIScript(raw);
-            if (parsed.length) setScenes(parsed);
+            if (parsed.length) {
+                setScenes(parsed);
+                const scriptText = parsed.map(s => `Scene ${s.scene}:\nVO: ${s.voiceover}\nAction: ${s.action}`).join('\n\n');
+                setProjectScript(scriptText);
+            }
             else setGenError('Could not parse AI output — try a clearer brief.');
         } catch (e) { setGenError(e.message); }
         finally { setGenerating(false); }

@@ -303,7 +303,7 @@ function AppInner() {
             aria-label="Open GTB Collective Hub"
           >
             <img
-              src="/vidacut/partner-logo.png"
+              src="/partner-logo.png"
               alt="GTB Logo"
               className="partner-logo-img"
               onError={e => { e.currentTarget.style.display = 'none'; }}
@@ -316,7 +316,7 @@ function AppInner() {
       {/* ─── Floating Watermark ─── */}
       <div className="watermark-wrap" aria-hidden="true">
         <img
-          src="/vidacut/partner-logo.png"
+          src="/partner-logo.png"
           alt=""
           className="watermark-img"
           onError={e => { e.currentTarget.style.display = 'none'; }}
