@@ -277,3 +277,64 @@ select {
     flex: unset;
   }
 }
+
+/* --- driver.js Theme Overrides for Glassmorphism --- */
+.driver-popover {
+  background: var(--bg-elevated) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius-md) !important;
+  color: var(--text-primary) !important;
+  font-family: var(--font-family) !important;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+}
+
+.driver-popover-title {
+  color: var(--text-primary) !important;
+  font-weight: 700 !important;
+  font-size: 1.1rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.driver-popover-description {
+  color: var(--text-secondary) !important;
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
+}
+
+.driver-popover-footer {
+  margin-top: 1rem !important;
+}
+
+.driver-popover-footer button {
+  background: var(--bg-surface) !important;
+  color: var(--text-secondary) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: var(--border-radius-sm) !important;
+  padding: 0.4rem 0.8rem !important;
+  font-weight: 600 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  transition: all var(--transition-fast) !important;
+}
+
+.driver-popover-footer button:hover {
+  background: var(--bg-surface-hover) !important;
+  color: var(--text-primary) !important;
+}
+
+.driver-popover-btn-next {
+  background: linear-gradient(135deg, var(--accent-primary), var(--accent-secondary)) !important;
+  color: #fff !important;
+  border: none !important;
+}
+
+.driver-popover-btn-next:hover {
+  box-shadow: 0 4px 16px rgba(99, 102, 241, 0.35) !important;
+  color: #fff !important;
+}
+
+.driver-popover-arrow {
+  display: none !important;
+}

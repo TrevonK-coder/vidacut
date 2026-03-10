@@ -13,6 +13,8 @@ import GTBHub from './components/GTBHub/GTBHub';
 import { PlanProvider } from './context/PlanContext';
 import { processVideos } from './lib/ffmpeg/videoProcessor';
 import { detectBeats } from './lib/audio/beatDetector';
+import { driver } from 'driver.js';
+import 'driver.js/dist/driver.css';
 import './index.css';
 import './App.css';
 
@@ -82,6 +84,34 @@ function AppInner() {
   const [outputVideoUrl, setOutputVideoUrl] = useState(null);
   const [error, setError] = useState(null);
   const [editorSettings, setEditorSettings] = useState(null);
+
+  // --- Guided Tour Logic ---
+  React.useEffect(() => {
+    if (editorMode === 'ai' && currentStep === 1) {
+      const hasSeenTour = localStorage.getItem('vidacut_ai_tour_seen');
+      if (!hasSeenTour) {
+        setTimeout(() => {
+          const driverObj = driver({
+            showProgress: true,
+            animate: true,
+            steps: [
+              { element: '.step-indicator', popover: { title: 'Welcome to the AI Wizard! ✨', description: 'Generating a stunning video is broken down into 3 simple steps.', side: "bottom", align: 'start' } },
+              { element: '.upload-section:first-child', popover: { title: '1. Add Videos 🎥', description: 'Upload all the raw video clips you want the AI to analyze and cut together.', side: "top", align: 'start' } },
+              { element: '.upload-section.mt-l', popover: { title: '2. Audio Track 🎵', description: 'Upload a music track here! The AI algorithm will automatically detect the beats and cut your videos to match the rhythm.', side: "top", align: 'start' } },
+              { element: '.btn-primary', popover: { title: 'Next Step ➔', description: 'Once you select your media, click here to give the AI creative direction and start rendering! Have fun! 🎉', side: "top", align: 'start' } },
+            ],
+            onDestroyStarted: () => {
+              if (driverObj.hasNextStep() || !driverObj.hasNextStep()) {
+                driverObj.destroy();
+                localStorage.setItem('vidacut_ai_tour_seen', 'true');
+              }
+            }
+          });
+          driverObj.drive();
+        }, 500); // Wait for animations/renders
+      }
+    }
+  }, [editorMode, currentStep]);
 
   const handleModeSwitch = (mode) => {
     setActiveMode(mode);
