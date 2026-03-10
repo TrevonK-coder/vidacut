@@ -16,6 +16,37 @@
     margin-top: 1rem;
 }
 
+.prompt-templates {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.template-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-right: 0.25rem;
+}
+
+.template-btn {
+    font-size: 0.75rem;
+    padding: 0.3rem 0.6rem;
+    background: var(--bg-surface);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-full);
+    color: var(--text-secondary);
+    transition: var(--transition-fast);
+}
+
+.template-btn:hover {
+    background: var(--bg-surface-hover);
+    color: var(--text-primary);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-1px);
+}
+
 .input-icon {
     position: absolute;
     top: 1rem;

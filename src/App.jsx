@@ -271,6 +271,10 @@ function AppInner() {
                         <div className="btn-group justify-center mt-l">
                           <button className="btn-secondary" onClick={handleStartOver}>Start Over</button>
                           <button className="btn-secondary" onClick={handleGenerate}>🔄 Re-Render with Effects</button>
+                          <button className="btn-secondary" onClick={() => {
+                            setVideos([{ name: 'AI_Generated_Cut.mp4', url: outputVideoUrl }]);
+                            setEditorMode('manual');
+                          }}>✂️ Refine in Editor</button>
                           <button className="btn-primary" onClick={handleDownload}>⬇ Download MP4</button>
                         </div>
                       </div>

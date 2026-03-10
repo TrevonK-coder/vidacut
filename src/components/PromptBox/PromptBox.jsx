@@ -23,6 +23,14 @@ export default function PromptBox({ prompt, setPrompt }) {
                 Describe the pacing, mood, and style. The AI will analyze this to determine where to cut the video perfectly to your audio track. {projectScript && " (Your generated script has been loaded!)"}
             </p>
 
+            <div className="prompt-templates">
+                <span className="template-label">Try a style:</span>
+                <button className="template-btn" onClick={() => setPrompt("Create a fast-paced, energetic hype montage. Cut quickly on the downbeats. Use high-contrast color grading with saturated primary colors.")}>🔥 Hype Montage</button>
+                <button className="template-btn" onClick={() => setPrompt("Create a slow, cinematic sequence. Emphasize long, sweeping shots and hold on emotional moments. Use a moody, desaturated teal-and-orange color palette.")}>🎬 Cinematic & Moody</button>
+                <button className="template-btn" onClick={() => setPrompt("Create a clean, corporate explainer style. Transitions should be smooth crossfades. Colors should be bright, neutral, and professional.")}>📊 Clean & Corporate</button>
+                <button className="template-btn" onClick={() => setPrompt("Create a raw, documentary-style edit. Keep cuts natural and unforced. Colors should reflect a realistic, unpolished aesthetic.")}>📹 Raw Documentary</button>
+            </div>
+
             <div className="prompt-input-wrapper">
                 <Type className="input-icon" size={18} color="var(--text-muted)" />
                 <textarea
